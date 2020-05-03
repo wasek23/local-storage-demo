@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- Create by Wasek bellah -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Local Storage Demo</title>
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <header>
+            <div class="container">
+                <h1>My Website</h1>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <h3 class="subHeading">Welcome to my website.</h3>
+
+                <form>
+                    <div class="remember">
+                        <input id="enterName" type="text" placeholder="Enter your name" required>
+                        <input id="submit" class="btn" type="submit" value="Say hello">
+                    </div>
+                    <div class="remove">
+                        <input id="removeName" class="btn" type="reset" value="Remove Name From This Site">
+                    </div>
+                </form>
+            </div>
+
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>Copyright nobody. Code by <a href="https://wasek-bellah.web.app/" target="_blank">Wasek Bellah</a>
+                </p>
+            </div>
+        </footer>
+
+        <script type="text/javascript">
+            const rememberDiv = document.querySelector('.remember');
+            const removeDiv = document.querySelector('.remove');
+            const form = document.querySelector('form');
+            const nameInput = document.querySelector('#enterName');
+            const submitBtn = document.querySelector('#submit');
+            const removeBtn = document.querySelector('#removeName');
+
+            const mainHeading = document.querySelector('h1');
+            const subHeading = document.querySelector('.subHeading');
+
+            form.addEventListener('submit', (e) => e.preventDefault());
+
+            submitBtn.addEventListener('click', () => {
+                localStorage.setItem('name', nameInput.value);
+                nameDisplayCheck();
+            });
+            removeBtn.addEventListener('click', () => {
+                localStorage.removeItem('name');
+                nameDisplayCheck();
+            });
+
+            const nameDisplayCheck = () => {
+                if (localStorage.getItem('name')) {
+                    let name = localStorage.getItem('name');
+
+                    mainHeading.textContent = 'Welcome ' + name;
+                    subHeading.textContent = 'Welcome to my website, ' + name + '! I hope you have fun while you are here.';
+
+                    rememberDiv.style.display = 'none';
+                    removeDiv.style.display = 'block';
+                } else {
+                    mainHeading.textContent = 'Welcome to my website ';
+                    subHeading.textContent = 'Welcome to my website. I hope you have fun while you are here.';
+
+                    rememberDiv.style.display = 'inline-block';
+                    removeDiv.style.display = 'none';
+                }
+            }
+
+            document.body.onload = nameDisplayCheck;
+        </script>
+    </body>
+
+</html>
